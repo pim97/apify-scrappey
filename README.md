@@ -2,7 +2,7 @@
 
 A powerful web scraping solution that combines Apify's actor infrastructure with Scrappey's advanced anti-detection capabilities. This actor helps you scrape any website while bypassing common anti-bot protections like Cloudflare, Datadome, and PerimeterX.
 
-![Scrappey API Integration](./assets/scrappey.png)
+![Scrappey API Integration](./assets/scrappey1.png)
 
 ## 🚀 Key Features
 
