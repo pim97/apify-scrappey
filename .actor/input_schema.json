@@ -9,13 +9,12 @@
             "description": "Your Scrappey API key (get one at https://scrappey.com)",
             "editor": "textfield"
         },
-        "targetUrl": {
+        "url": {
             "title": "Target URL",
             "type": "string",
             "description": "The URL you want to scrape",
             "editor": "textfield"
         },
-        "url": {
         "title": "URL of the page",
         "type": "string",
         "description": "The URL of website you want to get the data from.",
