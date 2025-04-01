@@ -80,8 +80,17 @@ try {
     // Save results to dataset
     await Actor.pushData({
         url: url,
+        verified: response.data.solution.verified,
+        cookieString: response.data.solution.cookieString,
+        responseHeaders: response.data.solution.responseHeaders,
+        requestHeaders: response.data.solution.requestHeaders,
         html: response.data.solution.response,
+        innerText: response.data.solution.innerText,
         cookies: response.data.solution.cookies,
+        ipInfo: response.data.solution.ipInfo,
+        data: response.data.solution.data,
+        timeElapsed: response.data.solution.timeElapsed,
+        session: response.data.solution.session,
         status: response.data.solution.status,
         localStorage: response.data.solution.localStorage,
         timestamp: new Date().toISOString()
