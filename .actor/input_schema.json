@@ -7,13 +7,15 @@
             "title": "Scrappey API Key",
             "type": "string",
             "description": "Your Scrappey API key (get one at https://scrappey.com)",
-            "editor": "textfield"
+            "editor": "textfield",
+            "default": "3CRJHQMxzXXPXW1hyLlgBMlQyIux15pqrY6rRlBgTN1SRFXmd2Z81KHzariz"
         },
         "url": {
             "title": "URL of the page",
             "type": "string",
             "description": "The URL of website you want to get the data from.",
             "editor": "textfield",
+            "default": "https://httpbin.rs/get",
             "prefill": "https://httpbin.rs/get"
         }
     },
