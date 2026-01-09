@@ -12,7 +12,7 @@ import { Actor } from 'apify';
 // ============================================================================
 
 /** Supported HTTP command types */
-type ScrappeyCommand = 
+type ScrappeyCommand =
     | 'request.get'
     | 'request.post'
     | 'request.put'
@@ -72,42 +72,42 @@ interface Input {
     // Required
     scrappeyApiKey: string;
     url: string;
-    
+
     // Command configuration
     cmd?: ScrappeyCommand;
     postData?: Record<string, unknown> | string;
-    
+
     // Request configuration
     requestType?: 'browser' | 'request';
     customHeaders?: Record<string, string>;
     referer?: string;
-    
+
     // Proxy configuration
     proxy?: string;
     proxyCountry?: string;
     noProxy?: boolean;
     premiumProxy?: boolean;
     mobileProxy?: boolean;
-    
+
     // Session management
     session?: string;
     closeAfterUse?: boolean;
-    
+
     // Browser configuration
     browserActions?: BrowserAction[];
     userAgent?: string;
     locales?: string[];
-    
+
     // Antibot bypass
     cloudflareBypass?: boolean;
     datadomeBypass?: boolean;
     kasadaBypass?: boolean;
     disableAntiBot?: boolean;
-    
+
     // Captcha solving
     automaticallySolveCaptchas?: boolean;
     alwaysLoad?: string[];
-    
+
     // Response options
     screenshot?: boolean;
     screenshotUpload?: boolean;
@@ -118,12 +118,12 @@ interface Input {
     includeLinks?: boolean;
     regex?: string | string[];
     filter?: string[];
-    
+
     // Cookie and storage
     cookies?: string;
     cookiejar?: Cookie[];
     localStorage?: Record<string, unknown>;
-    
+
     // Advanced options
     interceptFetchRequest?: string | string[];
     abortOnDetection?: string[];
@@ -210,11 +210,11 @@ interface OutputData {
 const SCRAPPEY_API_ENDPOINT = 'https://publisher.scrappey.com/api/v1';
 
 const CMD_MAP: Record<string, ScrappeyCommand> = {
-    'get': 'request.get',
-    'post': 'request.post',
-    'put': 'request.put',
-    'delete': 'request.delete',
-    'patch': 'request.patch',
+    get: 'request.get',
+    post: 'request.post',
+    put: 'request.put',
+    delete: 'request.delete',
+    patch: 'request.patch',
     'request.get': 'request.get',
     'request.post': 'request.post',
     'request.put': 'request.put',
@@ -239,11 +239,23 @@ function normalizeCommand(cmd?: string): ScrappeyCommand {
 }
 
 /**
+ * Validates URL format
+ */
+function isValidUrl(urlString: string): boolean {
+    try {
+        const parsed = new URL(urlString);
+        return Boolean(parsed);
+    } catch {
+        return false;
+    }
+}
+
+/**
  * Builds the request body for Scrappey API
  */
 function buildRequestBody(input: Input): Record<string, unknown> {
     const cmd = normalizeCommand(input.cmd);
-    
+
     const body: Record<string, unknown> = {
         cmd,
         url: input.url,
@@ -350,7 +362,7 @@ await Actor.init();
 try {
     // Get and validate input
     const input = await Actor.getInput<Input>();
-    
+
     if (!input) {
         throw new Error('Input is missing!');
     }
@@ -367,9 +379,7 @@ try {
     }
 
     // Validate URL format
-    try {
-        new URL(url);
-    } catch {
+    if (!isValidUrl(url)) {
         throw new Error(`Invalid URL format: ${url}`);
     }
 
@@ -388,7 +398,7 @@ try {
                 'Content-Type': 'application/json',
             },
             timeout: input.timeout || 300000, // 5 minute default timeout
-        }
+        },
     );
 
     const apiResponse = response.data;
@@ -436,26 +446,25 @@ try {
     if (solution.detectedAntibotProviders?.providers?.length) {
         console.log(`Detected antibot providers: ${solution.detectedAntibotProviders.providers.join(', ')}`);
     }
-
 } catch (error) {
     if (error instanceof AxiosError) {
         const statusCode = error.response?.status;
         const responseData = error.response?.data;
-        
+
         console.error(`HTTP Error ${statusCode}:`, responseData);
-        
+
         if (statusCode === 401 || statusCode === 403) {
             throw new Error('Invalid or expired Scrappey API key');
         }
-        
+
         throw new Error(`Scrappey API request failed: ${error.message}`);
     }
-    
+
     if (error instanceof Error) {
         console.error('Error during scraping:', error.message);
         throw error;
     }
-    
+
     console.error('Unknown error:', String(error));
     throw new Error(String(error));
 } finally {

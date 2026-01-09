@@ -2,18 +2,18 @@
  * Unit tests for Apify Scrappey Actor
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 
 // ============================================================================
 // Helper Function Tests (extracted for testing)
 // ============================================================================
 
 const CMD_MAP: Record<string, string> = {
-    'get': 'request.get',
-    'post': 'request.post',
-    'put': 'request.put',
-    'delete': 'request.delete',
-    'patch': 'request.patch',
+    get: 'request.get',
+    post: 'request.post',
+    put: 'request.put',
+    delete: 'request.delete',
+    patch: 'request.patch',
     'request.get': 'request.get',
     'request.post': 'request.post',
     'request.put': 'request.put',
@@ -57,7 +57,7 @@ interface TestInput {
 
 function buildRequestBody(input: TestInput): Record<string, unknown> {
     const cmd = normalizeCommand(input.cmd);
-    
+
     const body: Record<string, unknown> = {
         cmd,
         url: input.url,
@@ -99,6 +99,15 @@ function buildRequestBody(input: TestInput): Record<string, unknown> {
     return body;
 }
 
+function isValidUrl(urlString: string): boolean {
+    try {
+        const parsed = new URL(urlString);
+        return Boolean(parsed);
+    } catch {
+        return false;
+    }
+}
+
 function validateInput(input: TestInput | null): void {
     if (!input) {
         throw new Error('Input is missing!');
@@ -112,9 +121,7 @@ function validateInput(input: TestInput | null): void {
         throw new Error('Target URL is required!');
     }
 
-    try {
-        new URL(input.url);
-    } catch {
+    if (!isValidUrl(input.url)) {
         throw new Error(`Invalid URL format: ${input.url}`);
     }
 }
@@ -413,7 +420,7 @@ describe('Cookie Handling', () => {
             { name: 'session', value: 'abc123', domain: 'example.com' },
             { name: 'token', value: 'xyz789', domain: 'example.com' },
         ];
-        const cookieString = cookies.map(c => `${c.name}=${c.value}`).join('; ');
+        const cookieString = cookies.map((c) => `${c.name}=${c.value}`).join('; ');
         expect(cookieString).toBe('session=abc123; token=xyz789');
     });
 });
@@ -430,7 +437,7 @@ describe('Browser Actions Validation', () => {
     ];
 
     it('should recognize valid action types', () => {
-        const actionTypes = validActions.map(a => a.type);
+        const actionTypes = validActions.map((a) => a.type);
         expect(actionTypes).toContain('click');
         expect(actionTypes).toContain('type');
         expect(actionTypes).toContain('wait');
