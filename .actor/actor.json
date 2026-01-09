@@ -1,12 +1,12 @@
 {
-	"actorSpecification": 1,
-	"name": "apify-scrappey",
-	"title": "Scrape single page in TypeScript",
-	"description": "Scrape data from single page with provided URL.",
-	"version": "0.0",
-	"meta": {
-		"templateId": "ts-start"
-	},
-	"input": "./input_schema.json",
-	"dockerfile": "./Dockerfile"
+    "actorSpecification": 1,
+    "name": "apify-scrappey",
+    "title": "Scrappey Web Scraper - Cloudflare Bypass & Antibot Solver",
+    "description": "Web scraping actor with automatic Cloudflare bypass, antibot solving (Datadome, PerimeterX, Kasada, Akamai), captcha solving (reCAPTCHA, hCaptcha, Turnstile), browser automation, and session management. Powered by Scrappey.com API.",
+    "version": "1.0",
+    "meta": {
+        "templateId": "ts-start"
+    },
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile"
 }

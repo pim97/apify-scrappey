@@ -1,26 +1,193 @@
 {
-    "title": "Scrappey Proxy Actor",
+    "title": "Scrappey Web Scraper - Input Configuration",
     "type": "object",
     "schemaVersion": 1,
     "properties": {
         "scrappeyApiKey": {
             "title": "Scrappey API Key",
             "type": "string",
-            "description": "Your Scrappey API key (get one at https://scrappey.com)",
+            "description": "Your Scrappey API key. Get one at https://scrappey.com",
             "editor": "textfield",
-            "default": "3CRJHQMxzXXPXW1hyLlgBMlQyIux15pqrY6rRlBgTN1SRFXmd2Z81KHzariz"
+            "isSecret": true
         },
         "url": {
-            "title": "URL of the page",
+            "title": "Target URL",
             "type": "string",
-            "description": "The URL of website you want to get the data from.",
+            "description": "The URL of the website to scrape",
             "editor": "textfield",
-            "default": "https://httpbin.rs/get",
             "prefill": "https://httpbin.rs/get"
+        },
+        "cmd": {
+            "title": "HTTP Method",
+            "type": "string",
+            "description": "The HTTP method to use for the request",
+            "editor": "select",
+            "default": "request.get",
+            "enum": ["request.get", "request.post", "request.put", "request.delete", "request.patch"],
+            "enumTitles": ["GET", "POST", "PUT", "DELETE", "PATCH"]
+        },
+        "postData": {
+            "title": "Request Body (POST/PUT/PATCH)",
+            "type": "object",
+            "description": "Data to send with POST, PUT, or PATCH requests. Can be form data or JSON.",
+            "editor": "json"
+        },
+        "requestType": {
+            "title": "Request Type",
+            "type": "string",
+            "description": "Use 'browser' for full browser rendering (slower, handles JS) or 'request' for HTTP-only mode (faster, cheaper)",
+            "editor": "select",
+            "default": "browser",
+            "enum": ["browser", "request"],
+            "enumTitles": ["Browser (Full rendering)", "Request (HTTP only)"]
+        },
+        "proxyCountry": {
+            "title": "Proxy Country",
+            "type": "string",
+            "description": "Request a proxy from a specific country (e.g., UnitedStates, Germany, UnitedKingdom)",
+            "editor": "textfield"
+        },
+        "proxy": {
+            "title": "Custom Proxy",
+            "type": "string",
+            "description": "Custom proxy URL in format: http://username:password@ip:port",
+            "editor": "textfield"
+        },
+        "premiumProxy": {
+            "title": "Use Premium Proxy",
+            "type": "boolean",
+            "description": "Use premium residential proxies for better success rates",
+            "default": false
+        },
+        "mobileProxy": {
+            "title": "Use Mobile Proxy",
+            "type": "boolean",
+            "description": "Use mobile carrier proxies",
+            "default": false
+        },
+        "session": {
+            "title": "Session ID",
+            "type": "string",
+            "description": "Session ID for maintaining state across requests. Leave empty for automatic session.",
+            "editor": "textfield"
+        },
+        "browserActions": {
+            "title": "Browser Actions",
+            "type": "array",
+            "description": "Array of browser automation actions (click, type, scroll, wait, etc.)",
+            "editor": "json",
+            "prefill": []
+        },
+        "automaticallySolveCaptchas": {
+            "title": "Automatically Solve Captchas",
+            "type": "boolean",
+            "description": "Automatically solve detected captchas (reCAPTCHA, hCaptcha, Turnstile)",
+            "default": false
+        },
+        "alwaysLoad": {
+            "title": "Always Load Captcha Types",
+            "type": "array",
+            "description": "Captcha types to always load solvers for: recaptcha, hcaptcha, turnstile",
+            "editor": "stringList"
+        },
+        "cloudflareBypass": {
+            "title": "Cloudflare Bypass",
+            "type": "boolean",
+            "description": "Enable Cloudflare-specific bypass optimizations",
+            "default": false
+        },
+        "datadomeBypass": {
+            "title": "Datadome Bypass",
+            "type": "boolean",
+            "description": "Enable Datadome-specific bypass using specialized solver",
+            "default": false
+        },
+        "kasadaBypass": {
+            "title": "Kasada Bypass",
+            "type": "boolean",
+            "description": "Enable Kasada-specific bypass optimizations",
+            "default": false
+        },
+        "screenshot": {
+            "title": "Capture Screenshot",
+            "type": "boolean",
+            "description": "Capture a screenshot of the page",
+            "default": false
+        },
+        "screenshotUpload": {
+            "title": "Upload Screenshot",
+            "type": "boolean",
+            "description": "Upload screenshot to storage and return URL",
+            "default": false
+        },
+        "video": {
+            "title": "Record Video",
+            "type": "boolean",
+            "description": "Record browser session as video",
+            "default": false
+        },
+        "cssSelector": {
+            "title": "CSS Selector",
+            "type": "string",
+            "description": "Extract content matching this CSS selector",
+            "editor": "textfield"
+        },
+        "innerText": {
+            "title": "Include Inner Text",
+            "type": "boolean",
+            "description": "Include the inner text content of the page",
+            "default": false
+        },
+        "includeImages": {
+            "title": "Include Images",
+            "type": "boolean",
+            "description": "Include all image URLs found on the page",
+            "default": false
+        },
+        "includeLinks": {
+            "title": "Include Links",
+            "type": "boolean",
+            "description": "Include all link URLs found on the page",
+            "default": false
+        },
+        "customHeaders": {
+            "title": "Custom Headers",
+            "type": "object",
+            "description": "Custom HTTP headers to send with the request",
+            "editor": "json"
+        },
+        "cookiejar": {
+            "title": "Cookie Jar",
+            "type": "array",
+            "description": "Array of cookies to set before making the request",
+            "editor": "json"
+        },
+        "localStorage": {
+            "title": "Local Storage",
+            "type": "object",
+            "description": "Local storage data to set in the browser",
+            "editor": "json"
+        },
+        "interceptFetchRequest": {
+            "title": "Intercept Fetch Request",
+            "type": "string",
+            "description": "URL pattern(s) to intercept and return (comma-separated for multiple)",
+            "editor": "textfield"
+        },
+        "fullPageLoad": {
+            "title": "Full Page Load",
+            "type": "boolean",
+            "description": "Wait for full page load including all resources",
+            "default": false
+        },
+        "timeout": {
+            "title": "Timeout (ms)",
+            "type": "integer",
+            "description": "Request timeout in milliseconds",
+            "default": 300000,
+            "minimum": 1000,
+            "maximum": 600000
         }
     },
-    "required": [
-        "scrappeyApiKey",
-        "url"
-    ]
+    "required": ["scrappeyApiKey", "url"]
 }
