@@ -1,12 +1,10 @@
 # Scrappey Web Scraper for Apify
 
-Web scraping actor with automatic Cloudflare bypass, antibot solving, captcha solving, and browser automation. Powered by [Scrappey.com](https://scrappey.com) API.
+A web scraping actor for reliable access to modern, JavaScript-heavy websites. Handles automated verification flows, managed browser sessions, proxy rotation, and full browser automation. Powered by the [Scrappey.com](https://scrappey.com) API.
 
 ## Features
 
-- **Cloudflare Bypass** - Automatically bypass Cloudflare protection and challenge pages
-- **Antibot Solving** - Handle Datadome, PerimeterX, Kasada, Akamai, AWS WAF, and Incapsula
-- **Captcha Solving** - Automatic solving for reCAPTCHA v2/v3, hCaptcha, Turnstile, FunCaptcha, and MTCaptcha
+- **Managed Web Access** - Reliably retrieve content from dynamic sites that require a real browser environment
 - **Browser Automation** - Full browser control with 20+ action types including click, type, scroll, and JavaScript execution
 - **Session Management** - Maintain cookies and state across multiple requests
 - **Proxy Support** - Built-in proxy rotation with country selection, premium, and mobile proxy options
@@ -66,18 +64,7 @@ Get your API key at [https://scrappey.com](https://scrappey.com)
 }
 ```
 
-### Automatic Captcha Solving
-
-```json
-{
-    "scrappeyApiKey": "your-api-key",
-    "url": "https://protected-site.com",
-    "automaticallySolveCaptchas": true,
-    "alwaysLoad": ["recaptcha", "hcaptcha", "turnstile"]
-}
-```
-
-### Geo-Targeted Scraping
+### Geo-Targeted Requests
 
 ```json
 {
@@ -106,7 +93,7 @@ Get your API key at [https://scrappey.com](https://scrappey.com)
 | Option | Type | Description |
 |--------|------|-------------|
 | `scrappeyApiKey` | string | Your Scrappey API key |
-| `url` | string | Target URL to scrape |
+| `url` | string | Target URL |
 
 ### HTTP Method
 
@@ -121,24 +108,9 @@ Get your API key at [https://scrappey.com](https://scrappey.com)
 | Option | Type | Description |
 |--------|------|-------------|
 | `proxy` | string | Custom proxy URL (http://user:pass@ip:port) |
-| `proxyCountry` | string | Request proxy from country (e.g., UnitedStates, Germany) |
+| `proxyCountry` | string | Request a proxy from a specific country (e.g., UnitedStates, Germany) |
 | `premiumProxy` | boolean | Use premium residential proxies |
 | `mobileProxy` | boolean | Use mobile carrier proxies |
-
-### Antibot Bypass
-
-| Option | Type | Description |
-|--------|------|-------------|
-| `cloudflareBypass` | boolean | Enable Cloudflare-specific bypass |
-| `datadomeBypass` | boolean | Enable Datadome bypass |
-| `kasadaBypass` | boolean | Enable Kasada bypass |
-
-### Captcha Solving
-
-| Option | Type | Description |
-|--------|------|-------------|
-| `automaticallySolveCaptchas` | boolean | Auto-solve detected captchas |
-| `alwaysLoad` | array | Captcha types to load: `recaptcha`, `hcaptcha`, `turnstile` |
 
 ### Response Options
 
@@ -203,7 +175,6 @@ Execute automated browser interactions:
 | `keyboard` | Press keyboard keys |
 | `dropdown` | Select dropdown option |
 | `execute_js` | Run JavaScript code |
-| `solve_captcha` | Solve captcha manually |
 | `if` | Conditional execution |
 | `while` | Loop execution |
 | `goto` | Navigate to URL |
@@ -216,7 +187,6 @@ Execute automated browser interactions:
         { "type": "wait_for_selector", "cssSelector": "#login-form" },
         { "type": "type", "cssSelector": "#email", "text": "user@example.com" },
         { "type": "type", "cssSelector": "#password", "text": "password123" },
-        { "type": "solve_captcha", "captcha": "turnstile" },
         { "type": "click", "cssSelector": "#submit", "waitForSelector": ".dashboard" },
         { "type": "execute_js", "code": "document.querySelector('.user-name').innerText" }
     ]
@@ -228,11 +198,11 @@ Execute automated browser interactions:
 | Code | Description | Solution |
 |------|-------------|----------|
 | CODE-0001 | Server overload | Retry with backoff |
-| CODE-0002 | Cloudflare blocked | Try different proxy |
+| CODE-0002 | Request not completed | Try a different proxy |
 | CODE-0007 | Proxy error | Check proxy credentials |
-| CODE-0010 | Datadome blocked | Use premium proxy |
+| CODE-0010 | Access not completed | Use a premium proxy |
 | CODE-0029 | Too many sessions | Wait for cleanup |
-| CODE-0032 | Turnstile unsolvable | Retry request |
+| CODE-0032 | Verification not completed | Retry request |
 
 ## Local Development
 
