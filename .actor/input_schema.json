@@ -79,33 +79,33 @@
             "prefill": []
         },
         "automaticallySolveCaptchas": {
-            "title": "Automatically Solve Captchas",
+            "title": "Automatically Handle Verification",
             "type": "boolean",
-            "description": "Automatically solve detected captchas (reCAPTCHA, hCaptcha, Turnstile)",
+            "description": "Automatically work through detected verification widgets where access is permitted",
             "default": false
         },
         "alwaysLoad": {
-            "title": "Always Load Captcha Types",
+            "title": "Always Load Verification Types",
             "type": "array",
-            "description": "Captcha types to always load solvers for: recaptcha, hcaptcha, turnstile",
+            "description": "Verification widget types to always load handlers for",
             "editor": "stringList"
         },
         "cloudflareBypass": {
-            "title": "Cloudflare Bypass",
+            "title": "Challenge Handling Mode A",
             "type": "boolean",
-            "description": "Enable Cloudflare-specific bypass optimizations",
+            "description": "Enable additional optimizations for sites with interstitial challenge pages",
             "default": false
         },
         "datadomeBypass": {
-            "title": "Datadome Bypass",
+            "title": "Challenge Handling Mode B",
             "type": "boolean",
-            "description": "Enable Datadome-specific bypass using specialized solver",
+            "description": "Enable additional optimizations for sites with advanced verification flows",
             "default": false
         },
         "kasadaBypass": {
-            "title": "Kasada Bypass",
+            "title": "Challenge Handling Mode C",
             "type": "boolean",
-            "description": "Enable Kasada-specific bypass optimizations",
+            "description": "Enable additional optimizations for sites with client-side verification",
             "default": false
         },
         "screenshot": {

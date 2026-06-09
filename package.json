@@ -2,18 +2,17 @@
     "name": "apify-scrappey",
     "version": "1.0.0",
     "type": "module",
-    "description": "Apify actor for web scraping with Scrappey.com - automatic Cloudflare bypass, antibot solving, captcha solving, and browser automation",
+    "description": "Apify actor for web scraping with Scrappey.com - managed browser sessions, proxy rotation, verification handling, and browser automation",
     "keywords": [
         "apify",
         "scrappey",
         "web-scraping",
-        "cloudflare-bypass",
-        "antibot",
-        "captcha-solver",
+        "web-scraping-api",
+        "proxy-rotation",
         "browser-automation",
-        "datadome",
-        "perimeterx",
-        "kasada"
+        "data-extraction",
+        "javascript-rendering",
+        "managed-browser"
     ],
     "homepage": "https://scrappey.com",
     "repository": {

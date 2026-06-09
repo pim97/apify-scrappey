@@ -1,8 +1,8 @@
 {
     "actorSpecification": 1,
     "name": "apify-scrappey",
-    "title": "Scrappey Web Scraper - Cloudflare Bypass & Antibot Solver",
-    "description": "Web scraping actor with automatic Cloudflare bypass, antibot solving (Datadome, PerimeterX, Kasada, Akamai), captcha solving (reCAPTCHA, hCaptcha, Turnstile), browser automation, and session management. Powered by Scrappey.com API.",
+    "title": "Scrappey Web Scraper - Managed Browser & Proxy API",
+    "description": "Web scraping actor for reliable access to modern, JavaScript-heavy websites. Handles automated verification flows, managed browser sessions, proxy rotation, browser automation, and data extraction. Powered by Scrappey.com API.",
     "version": "1.0",
     "meta": {
         "templateId": "ts-start"
