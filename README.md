@@ -1,4 +1,4 @@
-# Scrappey Web Scraper for Apify
+# Scrappey Web Scraper for Apify 
 
 A web scraping actor for reliable access to modern, JavaScript-heavy websites. Handles automated verification flows, managed browser sessions, proxy rotation, and full browser automation. Powered by the [Scrappey.com](https://scrappey.com) API.
 
